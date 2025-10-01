@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Revision",
+			"Path": "..\\Source\\Revision.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "RevisionEditor",
+			"Path": "..\\Source\\RevisionEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
