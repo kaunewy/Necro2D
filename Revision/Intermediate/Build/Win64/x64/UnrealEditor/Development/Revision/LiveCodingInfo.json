@@ -1,9 +1,0 @@
-{
-	"RemapUnityFiles": 
-	{
-		"Module.Revision.gen.cpp.obj": [
-			"Necro.gen.cpp.obj",
-			"Revision.init.gen.cpp.obj"
-		]
-	}
-}

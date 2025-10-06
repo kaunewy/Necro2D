@@ -1,8 +1,0 @@
-{
-	"SourceFiles": [
-		"E:\\Unreal\\Project\\FirstProject\\Revision\\Source\\Revision\\Revision.Build.cs",
-		"E:\\Unreal\\Project\\FirstProject\\Revision\\Source\\Revision.Target.cs",
-		"E:\\Unreal\\Project\\FirstProject\\Revision\\Source\\RevisionEditor.Target.cs"
-	],
-	"EngineVersion": "5.6.1"
-}
