@@ -14,7 +14,9 @@ class REVISION_API UHealthComponent : public UActorComponent
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeath);
 	UPROPERTY(BlueprintAssignable)
 	FOnDeath onDeath;
-
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnHit);
+	UPROPERTY(BlueprintAssignable)
+	FOnHit onHit;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -24,6 +26,10 @@ public:
 	FOnDeath& OnDeath()
 	{
 		return onDeath;
+	}
+	FOnHit& GetOnHit()
+	{
+		return onHit;
 	}
 
 public:	

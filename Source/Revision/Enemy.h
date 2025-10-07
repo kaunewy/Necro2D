@@ -29,7 +29,7 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	void Init();
-	void BeginOverlap(UPrimitiveComponent* OverlappedComp,
+	UFUNCTION() void BeginOverlap(UPrimitiveComponent* OverlappedComp,
 		AActor* OtherActor,
 		UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex,

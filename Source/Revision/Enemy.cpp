@@ -11,7 +11,7 @@ AEnemy::AEnemy()
 	healthCompo = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
 
 	AddOwnedComponent(attackCompo);
-	AddOwnedComponent(triggerBox);
+	triggerBox->SetupAttachment(RootComponent);
 }
 
 
