@@ -15,6 +15,7 @@ class REVISION_API UAttackComponent : public UActorComponent
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttack, bool, _value);
 	UPROPERTY(BlueprintAssignable)
 	FOnAttack onAttack;
+	AActor* owner = nullptr;
 
 public:	
 	UAttackComponent();
@@ -31,5 +32,7 @@ protected:
 
 public:
 	UFUNCTION() void Attack(const FInputActionValue& _value);
+	void AttackWithoutBind(AActor* _otherActor);
+	void Init();
 		
 };

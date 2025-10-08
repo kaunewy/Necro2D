@@ -2,6 +2,10 @@
 
 
 #include "AttackComponent.h"
+#include "Necro.h"
+#include "Enemy.h"
+#include "HealthComponent.h"
+#include <Kismet/KismetSystemLibrary.h>
 
 // Sets default values for this component's properties
 UAttackComponent::UAttackComponent()
@@ -18,7 +22,7 @@ UAttackComponent::UAttackComponent()
 void UAttackComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
+	Init();
 	// ...
 	
 }
@@ -34,8 +38,38 @@ void UAttackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UAttackComponent::Attack(const FInputActionValue& _value)
 {
-	bool _val = _value.Get<bool>();
+	const bool& _val = _value.Get<bool>();
 
 	onAttack.Broadcast(_val);
+
 }
 
+
+void UAttackComponent::AttackWithoutBind(AActor* _otherActor)
+{
+
+	onAttack.Broadcast(true);
+
+	ANecro* _necro = Cast<ANecro>(_otherActor);
+	if (_necro)
+	{
+		_necro->GetHealthComponent()->TakeDamage(1.0f);
+	}
+	else
+	{
+		AEnemy* _enemy = Cast<AEnemy>(_otherActor);
+		if (!_enemy)
+		{
+			return;
+		}
+		UKismetSystemLibrary::PrintString(this, "Enemy take damage");
+		_enemy->GetHealthComponent()->TakeDamage(1.0f);
+
+	}
+
+}
+
+void UAttackComponent::Init()
+{
+	owner = GetOwner();
+}

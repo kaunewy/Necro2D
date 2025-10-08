@@ -38,6 +38,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+public:
 	void TakeDamage(float _damageTake);
 
 		

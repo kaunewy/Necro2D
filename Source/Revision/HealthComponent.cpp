@@ -2,6 +2,7 @@
 
 
 #include "HealthComponent.h"
+#include <Kismet/KismetSystemLibrary.h>
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -37,8 +38,9 @@ void UHealthComponent::TakeDamage(float _damageTake)
 	life -= _damageTake;
 	if (life <= 0)
 	{
+		UKismetSystemLibrary::PrintString(this, "Dead");
 		onDeath.Broadcast();
-		GetOwner()->PrimaryActorTick.bCanEverTick = false;
+		GetOwner()->Destroy();
 	}
 	else
 	{

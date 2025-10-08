@@ -2,6 +2,7 @@
 
 
 #include "Enemy.h"
+#include "Components/CapsuleComponent.h"
 #include <Kismet/KismetSystemLibrary.h>
 
 AEnemy::AEnemy()
@@ -9,9 +10,15 @@ AEnemy::AEnemy()
 	attackCompo = CreateDefaultSubobject<UAttackComponent>("AttackComponent");
 	triggerBox = CreateDefaultSubobject<UBoxComponent>("TriggerBox");
 	healthCompo = CreateDefaultSubobject<UHealthComponent>("HealthComponent");
+	moveCompo = CreateDefaultSubobject<UEnemyMovementComponent>("MoveCompo");
+	sprite = CreateDefaultSubobject<UPaperFlipbookComponent>("Sprite");
+	capsule = CreateDefaultSubobject<UCapsuleComponent>("Capsule");
 
 	AddOwnedComponent(attackCompo);
-	triggerBox->SetupAttachment(RootComponent);
+	triggerBox->SetupAttachment(GetCapsuleComponent());
+	sprite->SetupAttachment(GetCapsuleComponent());
+	AddOwnedComponent(moveCompo);
+	RootComponent = capsule;
 }
 
 
@@ -33,6 +40,7 @@ void AEnemy::BeginOverlap(UPrimitiveComponent* OverlappedComp,
 	bool bFromSweep,
 	const FHitResult& SweepResult)
 {
+	attackCompo->AttackWithoutBind(OtherActor);
 	UKismetSystemLibrary::PrintString(this, "Enemy touch the player");
 }
 

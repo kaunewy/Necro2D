@@ -26,6 +26,15 @@ void ANecro::BeginPlay()
 	Init();
 }
 
+void ANecro::Tick(float _deltaTime)
+{
+	Super::Tick(_deltaTime);
+	if (canAttack)
+	{
+		attackCompo->AttackWithoutBind(_enemy);
+	}
+}
+
 void ANecro::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -48,5 +57,5 @@ void ANecro::Init()
 
 void ANecro::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UKismetSystemLibrary::PrintString(this, "Touch");
+	_enemy = OtherActor;
 }

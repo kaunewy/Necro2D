@@ -52,22 +52,33 @@ class REVISION_API ANecro : public APaperZDCharacter
 	TObjectPtr<UBoxComponent> triggerBox = nullptr;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UHealthComponent> healthCompo = nullptr;
+	UPROPERTY(EditAnywhere)
+	AActor* _enemy = nullptr;
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool canAttack = false;
 
 public:
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UNecroMovementComponent* GetMovementCompo()
+	FORCEINLINE UNecroMovementComponent* GetMovementCompo() const
 	{
 		return movementCompo;
 	};
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UAttackComponent* GetAttackCompo()
+	FORCEINLINE UAttackComponent* GetAttackCompo() const
 	{
 		return attackCompo;
 	};
 	UFUNCTION(BlueprintCallable)
-	FORCEINLINE UBoxComponent* GetTriggerBox()
+	FORCEINLINE UBoxComponent* GetTriggerBox() const
 	{
 		return triggerBox;
+	}
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UHealthComponent* GetHealthComponent() const
+	{
+		return healthCompo;
 	}
 
 
@@ -77,6 +88,7 @@ public:
 
 private:
 	virtual void BeginPlay() override;
+	virtual void Tick(float _deltaTime) override;
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     void Init();
 	UFUNCTION() void OnBeginOverlap(UPrimitiveComponent* OverlappedComp,

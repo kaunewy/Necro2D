@@ -14,8 +14,12 @@ class REVISION_API UEnemyMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+
 protected:
 	AEnemy* owner = nullptr;
+	FVector direction = FVector(1.0f,0.0f,0.0f);
+	float speed = 50.0f;
+	bool isBound = false;
 
 public:	
 	UEnemyMovementComponent();
@@ -25,5 +29,10 @@ protected:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void Init();
 	void Move();
+	/*UFUNCTION() void EnemyHitWall(UPrimitiveComponent* HitComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		FVector NormalImpulse,
+		const FHitResult& Hit);*/
 		
 };
