@@ -19,7 +19,7 @@ class REVISION_API UHealthComponent : public UActorComponent
 	FOnHit onHit;
 
 protected:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float life = 5.0f;
 	
 public:
@@ -30,6 +30,11 @@ public:
 	FOnHit& GetOnHit()
 	{
 		return onHit;
+	}
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE float GetLife() const
+	{
+		return life;
 	}
 
 public:	

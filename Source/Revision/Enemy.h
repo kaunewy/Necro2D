@@ -10,6 +10,7 @@
 #include "EnemyMovementComponent.h"
 #include "PaperFlipbookComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "PaperZDAnimationComponent.h"
 #include "Enemy.generated.h"
 
 /**
@@ -31,6 +32,18 @@ class REVISION_API AEnemy : public AActor
 	TObjectPtr<UPaperFlipbookComponent> sprite = nullptr;
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UCapsuleComponent> capsule = nullptr;
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<UPaperZDAnimationComponent> animCompo = nullptr;
+	UPROPERTY(EditAnywhere)
+	AActor* player = nullptr;
+
+
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool canAttack = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool isAttacking = false;
 
 
 public:
@@ -38,16 +51,28 @@ public:
 	{
 		return capsule;
 	}
+	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UHealthComponent* GetHealthComponent() const
 	{
 		return healthCompo;
 	}
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE void SetCanAttack(const bool& _value)
+	{
+		canAttack = _value;
+	}
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE UAttackComponent* GetAttackComponent() const
+	{
+		return attackCompo;
+	}
 
 public:
 	AEnemy();
+	virtual void BeginPlay() override;
+	virtual void Tick(float _deltaTime) override;
 
 protected:
-	virtual void BeginPlay() override;
 	void Init();
 	UFUNCTION() void BeginOverlap(UPrimitiveComponent* OverlappedComp,
 		AActor* OtherActor,
@@ -55,5 +80,9 @@ protected:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
+	UFUNCTION() void OnEndOverlap(UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex);
 
 };

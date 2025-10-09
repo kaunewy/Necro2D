@@ -48,12 +48,18 @@ void UAttackComponent::Attack(const FInputActionValue& _value)
 void UAttackComponent::AttackWithoutBind(AActor* _otherActor)
 {
 
-	onAttack.Broadcast(true);
+	//onAttack.Broadcast(true);
 
 	ANecro* _necro = Cast<ANecro>(_otherActor);
 	if (_necro)
 	{
+		UKismetSystemLibrary::PrintString(this, "player take damage");
 		_necro->GetHealthComponent()->TakeDamage(1.0f);
+		AEnemy* _enemy = Cast<AEnemy>(owner);
+		if (_enemy)
+		{
+			_enemy->SetCanAttack(false);
+		}
 	}
 	else
 	{
@@ -62,9 +68,12 @@ void UAttackComponent::AttackWithoutBind(AActor* _otherActor)
 		{
 			return;
 		}
-		UKismetSystemLibrary::PrintString(this, "Enemy take damage");
 		_enemy->GetHealthComponent()->TakeDamage(1.0f);
-
+		ANecro* _player = Cast<ANecro>(owner);
+		if (_player)
+		{
+			_player->SetCanAttack(false);
+		}
 	}
 
 }

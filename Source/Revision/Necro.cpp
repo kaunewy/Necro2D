@@ -31,7 +31,8 @@ void ANecro::Tick(float _deltaTime)
 	Super::Tick(_deltaTime);
 	if (canAttack)
 	{
-		attackCompo->AttackWithoutBind(_enemy);
+		UKismetSystemLibrary::PrintString(this, "Player Attack");
+		attackCompo->AttackWithoutBind(enemy);
 	}
 }
 
@@ -53,9 +54,15 @@ void ANecro::Init()
 	_sys->AddMappingContext(_inputs._mappingContext, 0);
 
 	triggerBox->OnComponentBeginOverlap.AddDynamic(this, &ANecro::OnBeginOverlap);
+	triggerBox->OnComponentEndOverlap.AddDynamic(this, &ANecro::OnEndOverlap);
 }
 
 void ANecro::OnBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	_enemy = OtherActor;
+	enemy = OtherActor;
+}
+
+void ANecro::OnEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	enemy = nullptr;
 }

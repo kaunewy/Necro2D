@@ -53,9 +53,9 @@ class REVISION_API ANecro : public APaperZDCharacter
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UHealthComponent> healthCompo = nullptr;
 	UPROPERTY(EditAnywhere)
-	AActor* _enemy = nullptr;
+	AActor* enemy = nullptr;
 
-protected:
+public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool canAttack = false;
 
@@ -80,6 +80,11 @@ public:
 	{
 		return healthCompo;
 	}
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE void SetCanAttack(const bool& _value)
+	{
+		canAttack = _value;
+	}
 
 
 
@@ -97,5 +102,8 @@ private:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
-	
+	UFUNCTION() void OnEndOverlap(UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex);
 };

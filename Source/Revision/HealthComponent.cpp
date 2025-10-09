@@ -40,10 +40,11 @@ void UHealthComponent::TakeDamage(float _damageTake)
 	{
 		UKismetSystemLibrary::PrintString(this, "Dead");
 		onDeath.Broadcast();
-		GetOwner()->Destroy();
+		//GetOwner()->Destroy();
 	}
 	else
 	{
+		UKismetSystemLibrary::PrintString(this, "Hit");
 		onHit.Broadcast();
 	}
 }

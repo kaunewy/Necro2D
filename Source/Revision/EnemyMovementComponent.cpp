@@ -43,6 +43,10 @@ void UEnemyMovementComponent::Init()
 
 void UEnemyMovementComponent::Move()
 {
+	if (!canMove)
+	{
+		return;
+	}
 	FHitResult _hit;
 	owner->GetCapsuleComponent()->MoveComponent(direction * speed * GetWorld()->DeltaTimeSeconds, owner->GetActorRotation(), true, &_hit);
 

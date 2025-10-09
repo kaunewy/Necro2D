@@ -13,6 +13,9 @@ UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class REVISION_API UEnemyMovementComponent : public UActorComponent
 {
 	GENERATED_BODY()
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnForward, float, _value);
+	UPROPERTY(BlueprintAssignable)
+	FOnForward onForward;
 
 
 protected:
@@ -20,6 +23,10 @@ protected:
 	FVector direction = FVector(1.0f,0.0f,0.0f);
 	float speed = 50.0f;
 	bool isBound = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool canMove = true;
+
+
 
 public:	
 	UEnemyMovementComponent();
